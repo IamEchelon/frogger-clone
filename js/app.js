@@ -61,7 +61,7 @@ var Player = function() {
 Player.prototype.update = function() {
     if (this.collideEnemy()) {
         this.reset();
-    } else if (this.collideJewel()){
+    } else if (this.collideJewel()) {
         this.reset();
         jewel.reset();
         jewel.counter += 100;
@@ -118,7 +118,7 @@ Player.prototype.collideEnemy = function() {
     }
 };
 // collision detection for jewel
-Player.prototype.collideJewel = function(){
+Player.prototype.collideJewel = function() {
     if (this.x < jewel.x + jewel.width &&
         this.x + this.width > jewel.x &&
         this.y < jewel.y + jewel.height &&
@@ -136,7 +136,7 @@ Player.prototype.reset = function() {
 var Jewel = function() {
     this.gemArray = ["Gem-Blue.png", "Gem-Green.png", "Gem-Orange.png"];
     this.gemLocation = [27, 124, 225, 326, 427];
-    this.sprite = "images/"+ this.gemArray.randomElement();
+    this.sprite = "images/" + this.gemArray.randomElement();
     this.x = this.gemLocation.randomElement();
     this.y = 35;
     this.width = 50;
@@ -149,7 +149,7 @@ Jewel.prototype.render = function() {
 };
 // set jewel to random location and random color
 Jewel.prototype.reset = function() {
-    this.sprite = "images/"+ this.gemArray.randomElement();
+    this.sprite = "images/" + this.gemArray.randomElement();
     this.x = this.gemLocation.randomElement();
 };
 
@@ -162,7 +162,7 @@ var Score = function() {
     this.scoreHeading.appendChild(this.node);
 };
 // update h2 text when called
-Score.prototype.scoreUpdate = function(score){
+Score.prototype.scoreUpdate = function(score) {
     this.h2 = this.doc.getElementsByTagName('h2');
     this.h2 = this.h2[0];
     this.h2Value = this.h2.firstChild.nodeValue;
