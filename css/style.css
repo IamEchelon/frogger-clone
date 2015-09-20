@@ -1,0 +1,19 @@
+
+
+body {
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    background-color: #87D37C;
+    color: white;
+    display: relative;
+}
+
+canvas {
+
+}
+
+h1 {
+
+    margin-bottom: 0px;
+    padding-top: 20px;
+}
