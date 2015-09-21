@@ -15,7 +15,7 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
     this.x = -100;
     this.y = this.yposArray.shift();
-    this.speed = 200 + Math.floor(Math.random() * 350);
+    this.speed = Math.floor(Math.random() * (600 - 300 + 1)) + 300;
     this.width = 50;
     this.height = 50;
     console.log('enemy loaded fine');
@@ -38,7 +38,7 @@ Enemy.prototype.render = function() {
 };
 // set enemeies to different speeds
 Enemy.prototype.reset = function() {
-    this.speed = 100 + Math.floor(Math.random() * 450);
+    this.speed = Math.floor(Math.random() * (600 - 300 + 1)) + 300;
 };
 
 
@@ -139,8 +139,8 @@ var Jewel = function() {
     this.sprite = "images/" + this.gemArray.randomElement();
     this.x = this.gemLocation.randomElement();
     this.y = 35;
-    this.width = 50;
-    this.height = 50;
+    this.width = 30;
+    this.height = 30;
     this.counter = 0;
     console.log("Jewel loaded");
 };
@@ -165,9 +165,10 @@ var Score = function() {
 Score.prototype.scoreUpdate = function(score) {
     this.h2 = this.doc.getElementsByTagName('h2');
     this.h2 = this.h2[0];
-    this.h2Value = this.h2.firstChild.nodeValue;
-    this.h2Value = this.h2Value.replace("Score: " + 0, "Score: " + score);
-    this.h2.firstChild.nodeValue = this.h2Value;
+    this.h2.firstChild.nodeValue = "Score: " + score;
+    // this.h2Value = this.h2.firstChild.nodeValue;
+    // this.h2Value = this.h2Value.replace("Score: " + 0, "Score: " + score);
+    // this.h2.firstChild.nodeValue = this.h2Value;
 
 };
 
