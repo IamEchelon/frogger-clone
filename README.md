@@ -1,4 +1,4 @@
-Froger-Arcade-Game - clone
+Froger Arcade Game Clone
 ===============================
 
 REACH THE JEWEL!

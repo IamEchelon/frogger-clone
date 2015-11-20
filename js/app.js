@@ -1,17 +1,16 @@
+//==========================================================================================================
 // Helper method that allows random selection from an array
+//==========================================================================================================
+
 Array.prototype.randomElement = function() {
     return this[Math.floor(Math.random() * this.length)];
 };
 
-// Enemies our player must avoid
+//==========================================================================================================
+// All things pertaining to the Enemy Object
+//==========================================================================================================
+
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-
-
     this.sprite = 'images/enemy-bug.png';
     this.x = -100;
     this.y = this.yposArray.shift();
@@ -20,14 +19,14 @@ var Enemy = function() {
     this.height = 50;
     console.log('enemy loaded fine');
 };
+
 Enemy.prototype.yposArray = [60, 140, 230];
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+
 Enemy.prototype.update = function(dt) {
     this.x = this.x + (dt * this.speed);
-
 };
-// Draw the enemy on the screen, required method for game
+
+// Draw the enemy on the screen
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     if (this.x > 600) {
@@ -36,15 +35,16 @@ Enemy.prototype.render = function() {
     }
 
 };
+
 // set enemeies to different speeds
 Enemy.prototype.reset = function() {
     this.speed = Math.floor(Math.random() * (600 - 300 + 1)) + 300;
 };
 
+//==========================================================================================================
+// All things pertaining to the Player Object
+//==========================================================================================================
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
@@ -57,6 +57,7 @@ var Player = function() {
     console.log("player loaded okay");
 
 };
+
 // checks for collisions and resets the player if one is detected
 Player.prototype.update = function() {
     if (this.collideEnemy()) {
@@ -73,9 +74,11 @@ Player.prototype.update = function() {
     }
 
 };
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
 // handles players keyboard inputs and movement distance
 Player.prototype.handleInput = function(key) {
     var jumpX = 101;
@@ -106,6 +109,7 @@ Player.prototype.handleInput = function(key) {
     console.log(this.x, this.y);
 
 };
+
 // collision detection for enemy
 Player.prototype.collideEnemy = function() {
     for (var i = 0; i < allEnemies.length; i += 1) {
@@ -117,6 +121,7 @@ Player.prototype.collideEnemy = function() {
         }
     }
 };
+
 // collision detection for jewel
 Player.prototype.collideJewel = function() {
     if (this.x < jewel.x + jewel.width &&
@@ -126,13 +131,17 @@ Player.prototype.collideJewel = function() {
         return true;
     }
 };
+
 // sets player back to starting coordinates
 Player.prototype.reset = function() {
     this.x = 200;
     this.y = 405;
 };
 
-// creates jewel object for players to collect
+//==========================================================================================================
+// All things pertaining to the Jewel Object
+//==========================================================================================================
+
 var Jewel = function() {
     this.gemArray = ["Gem-Blue.png", "Gem-Green.png", "Gem-Orange.png"];
     this.gemLocation = [27, 124, 225, 326, 427];
@@ -144,14 +153,20 @@ var Jewel = function() {
     this.counter = 0;
     console.log("Jewel loaded");
 };
+
 Jewel.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
 // set jewel to random location and random color
 Jewel.prototype.reset = function() {
     this.sprite = "images/" + this.gemArray.randomElement();
     this.x = this.gemLocation.randomElement();
 };
+
+//==========================================================================================================
+// All things pertaining to the Score Object
+//==========================================================================================================
 
 // create score element in dom
 var Score = function() {
@@ -161,6 +176,7 @@ var Score = function() {
     this.node = this.doc.createTextNode("Score: " + 0);
     this.scoreHeading.appendChild(this.node);
 };
+
 // update h2 text when called
 Score.prototype.scoreUpdate = function(score) {
     this.h2 = this.doc.getElementsByTagName('h2');
@@ -176,20 +192,28 @@ Score.prototype.scoreUpdate = function(score) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+//==========================================================================================================
+// Implementation
+//==========================================================================================================
+
 
 var allEnemies = [];
 
 for (var i = 0; i < 3; i += 1) {
     allEnemies.push(new Enemy());
 }
+
 var player = new Player();
+
 var jewel = new Jewel();
+
 var score = new Score();
 
 
+//==========================================================================================================
+// Listens for key presses and sends the keys to Player.handleInput()
+//==========================================================================================================
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
